@@ -1,0 +1,53 @@
+#Currency Converter 
+import exchange_rates as fx
+
+#Currency Converter
+def convert_currency(amount, input_currency, output_currency):
+   
+    if amount < 0:
+        raise ValueError("Amount must be positive")
+    if input_currency == output_currency:
+        return amount
+    if input_currency == 'USD':
+        return amount * fx.get_exchange_rate(output_currency)
+    elif output_currency == 'USD':
+        return amount / fx.get_exchange_rate(input_currency)    
+    else:   
+        return amount * fx.get_exchange_rate(output_currency) / fx.get_exchange_rate(input_currency)
+    
+
+    
+def display_exchange_rates():
+    print("Exchange rates:")
+    print(f"USD to EUR: {fx.get_exchange_rate('EUR')}")
+    print(f"USD to GBP: {fx.get_exchange_rate('GBP')}")
+    print(f"USD to JPY: {fx.get_exchange_rate('JPY')}")
+    print(f"USD to CHF: {fx.get_exchange_rate('CHF')}")
+    print(f"USD to AUD: {fx.get_exchange_rate('AUD')}")
+    print(f"USD to CAD: {fx.get_exchange_rate('CAD')}")
+    print(f"USD to RMB: {fx.get_exchange_rate('RMB')}")    
+
+def main():    
+    is_running = True
+    while is_running == True:
+        print("Welcome to the Currency Converter!")
+        print("Option 1: Convert Currency")
+        print("Option 2: Display exchange rates")
+        print("Option 3: Exit")
+        option = input("Select an option (1-3): ")
+        if option == "1":
+            input_currency = input("Enter the input currency (USD, EUR, GBP, JPY, CHF, AUD, CAD, RMB): ")
+            output_currency = input("Enter the output currency (USD, EUR, GBP, JPY, CHF, AUD, CAD, RMB): ")
+            amount = float(input("Enter the amount to convert: ")) 
+            converted_amount = convert_currency(amount, input_currency, output_currency)
+            convert_currency(amount, input_currency, output_currency)
+            print(f"{amount} {input_currency} = {converted_amount:.2f} {output_currency}")
+        elif option == "2":
+            display_exchange_rates()
+            print("Exchange rates displayed.")
+        elif option == "3":
+            print("Exiting the Currency Converter. Goodbye!")
+            is_running = False
+
+if __name__ == "__main__":
+    main()
